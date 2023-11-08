@@ -1,0 +1,281 @@
+/* Navbar.css */
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 5px !important;
+  position: sticky !important; /* Make the navbar sticky */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 1000; /* Ensure the navbar is above other content */
+}
+
+.navbar-logo {
+  width: 130px; /* Updated width */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Add spacing between logo and links */
+}
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    width: 95px; /* Updated width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 20px; /* Add spacing between logo and links */
+  }
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  position: relative; /* Add position relative */
+  color: white;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #6c5ce7; /* Greenish color */
+  transition: width 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #6c5ce7;
+}
+
+.navbar-nav .nav-link.active-link {
+  color: #6c5ce7 !important; /* Change active link color */
+}
+
+.nav-link-mbl {
+  position: relative; /* Add position relative */
+  color: white;
+  padding: 12px 15px;
+  transition: color 0.3s;
+  text-decoration: none !important;
+}
+
+.nav-link-mbl::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #6c5ce7; /* Greenish color */
+  transition: width 0.3s;
+}
+
+.nav-link-mbl.active-link-mbl {
+  background-color: #6c5ce7 !important; /* Change active link color */
+}
+
+.navbar-nav .nav-link.active-link::before {
+  width: 100%;
+}
+
+.isActive {
+  color: #6c5ce7 !important;
+}
+
+.custom-button {
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.btn-outline-light.custom-button {
+  border-color: white;
+  color: white;
+}
+.navbar-nav-mbl {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    display: none; /* Hide the links on small screens */
+  }
+  .navbar-nav-mbl {
+    display: block; /* Display the links below navbar on small screens */
+    /* flex-direction: row; */
+    text-align: center;
+    background-color: #08102b;
+    padding: 12px;
+    color: #e1e1e1;
+  }
+  .d-lg-none .navbar-nav {
+    display: flex; /* Display the links below navbar on small screens */
+    flex-direction: column;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.sf-btn {
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: #5a0052;
+  color: #ffffff;
+  border-radius: 20px;
+}
+
+.sf-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Navbar.css */
+.sf-link {
+  display: inline-block;
+  margin: 0 1px;
+  padding: 6px 13px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #ffffff;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.sf-logout-2 {
+  display: inline-block;
+  /* margin: 0 1px; */
+  padding: 6px 13px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #ffffff;
+  /* border-radius: 20px; */
+  /* border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px; */
+  transition: all 0.3s ease;
+  background-color: #b40e03;
+}
+
+.sf-logout {
+  display: inline-block;
+  /* margin: 0 1px; */
+  padding: 6px 13px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #ffffff;
+  /* border-radius: 20px; */
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: #b40e03;
+}
+.sf-create-event {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 6px 13px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #ffffff;
+  /* border-radius: 20px; */
+  /* border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px; */
+  transition: all 0.3s ease;
+  /* background-color: #00753b; */
+  background-color: #4c4ca6;
+}
+
+.sf-uname {
+  display: inline-block;
+  /* margin: 0 1px; */
+  padding: 6px 13px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #ffffff;
+  /* border-radius: 20px; */
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: #242120;
+}
+
+.sf-link:hover {
+  background: linear-gradient(45deg, rgb(29, 21, 53), rgb(109, 0, 67));
+  background-size: 400% 400%;
+  animation: sfLinkAnimation 4s linear infinite;
+  color: #fff;
+}
+.sf-logout-2:hover {
+  background: linear-gradient(45deg, rgb(29, 21, 53), rgb(109, 0, 67));
+  background-size: 400% 400%;
+  animation: sfLinkAnimation 4s linear infinite;
+  color: #fff;
+}
+.sf-create-event:hover {
+  background: linear-gradient(45deg, rgb(29, 21, 53), rgb(109, 0, 67));
+  background-size: 400% 400%;
+  animation: sfLinkAnimation 4s linear infinite;
+  color: #fff;
+}
+.sf-link.active,
+.sf-create-event.active {
+  background: linear-gradient(300deg, #443572, #3d7148);
+  background-size: 1000% 1000%;
+
+  -webkit-animation: sfLinkAnimated 8s ease infinite;
+  -moz-animation: sfLinkAnimated 8s ease infinite;
+  animation: sfLinkAnimated 8s ease infinite;
+}
+
+@-webkit-keyframes sfLinkAnimated {
+  0% {
+    background-position: 32% 0%;
+  }
+  50% {
+    background-position: 69% 100%;
+  }
+  100% {
+    background-position: 32% 0%;
+  }
+}
+@-moz-keyframes sfLinkAnimated {
+  0% {
+    background-position: 32% 0%;
+  }
+  50% {
+    background-position: 69% 100%;
+  }
+  100% {
+    background-position: 32% 0%;
+  }
+}
+@keyframes sfLinkAnimated {
+  0% {
+    background-position: 32% 0%;
+  }
+  50% {
+    background-position: 69% 100%;
+  }
+  100% {
+    background-position: 32% 0%;
+  }
+}

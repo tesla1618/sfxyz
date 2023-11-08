@@ -1,0 +1,110 @@
+/* SearchMenu.css */
+.search-menu-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  margin-top: 20px; /* Add some margin for spacing */
+  /* width: 400px; */
+}
+
+.search-menu {
+  /* display: flex; */
+  /* align-items: center; */
+}
+.search-input {
+  padding: 15px 40px 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  /* font-size: 17px; */
+  width: 900px;
+  transition: background-color 0.3s ease;
+}
+
+.search-input-2 {
+  padding: 15px 40px 10px 20px;
+  border: none;
+  border-radius: 20px 20px 0px 0px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  /* font-size: 17px; */
+  width: 900px;
+  transition: background-color 0.3s ease;
+}
+
+.search-input:focus {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+.search-button {
+  border: none;
+  padding: 15px 40px 10px 20px;
+  background-color: #5a0052;
+  color: #ffffff;
+  /* font-size: 17px; */
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #002958;
+}
+
+.searchResults {
+  /* margin-top: 20px; */
+  background-color: #18092a;
+  padding: 10px;
+  color: #f2f2f2;
+  width: 900px;
+}
+.container-sf {
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    padding: 15px 40px 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    /* font-size: 17px; */
+    width: 300px;
+    transition: background-color 0.3s ease;
+  }
+  .search-input-2 {
+    padding: 15px 40px 10px 20px;
+    border: none;
+    border-radius: 20px 20px 0px 0px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    /* font-size: 17px; */
+    width: 300px;
+    transition: background-color 0.3s ease;
+  }
+  .searchResults {
+    /* margin-top: 20px; */
+    background-color: #18092a;
+    padding: 10px;
+    color: #f2f2f2;
+    width: 300px;
+  }
+}
+
+.search-input::placeholder {
+  color: #ffffff; /* Change this color to your desired placeholder color */
+}
+.search-input-2::placeholder {
+  color: #ffffff; /* Change this color to your desired placeholder color */
+}
+.search-input,
+.search-input-2:focus {
+  outline: none;
+}
