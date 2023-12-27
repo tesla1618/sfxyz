@@ -1,6 +1,11 @@
 from django.contrib import admin
 from .models import *
 from unfold.admin import ModelAdmin
+from django.contrib.auth.admin import UserAdmin
+
+
+class CustomUserAdmin(UserAdmin):
+    ...
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'link', 'date', 'location', 'city', 'capacity', 'isPrivate', 'pkey', 'hasFee', 'entryFee', 'host', 'thumb', 'isCompleted')
@@ -9,7 +14,8 @@ class EventAdmin(admin.ModelAdmin):
 @admin.register(EventImage)
 @admin.register(Userprofile)
 @admin.register(EventSpeaker)
-@admin.register(EventAttendance)
+@admin.register(RegisteredEvent)
+@admin.register(InterestedEvent)
 @admin.register(UserAccount)
 class CustomAdminClass(ModelAdmin):
     pass

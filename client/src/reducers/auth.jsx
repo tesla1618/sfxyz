@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, USER_LOADED, AUTH_ERROR, LOGOUT, AUTHENTICATED, NOT_AUTHENTICATED } from "../actions/types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, USER_LOADED, AUTH_ERROR, LOGOUT, AUTHENTICATED, NOT_AUTHENTICATED, SIGNUP_SUCCESS, SIGNUP_FAIL } from "../actions/types";
 
 const initialState = {
   access: localStorage.getItem("access"),
@@ -58,6 +58,16 @@ export default function (state = initialState, action) {
         refresh: null,
         isAuthenticated: false,
         user: null,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: false,
+      };
+    case SIGNUP_FAIL:
+      return {
+        ...state,
+        isAuthenticated: false,
       };
     default:
       return state;

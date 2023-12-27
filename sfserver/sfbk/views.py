@@ -15,19 +15,47 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django.contrib.auth import get_user_model, login, logout
 from rest_framework.authentication import SessionAuthentication
 from rest_framework import permissions
+from rest_framework_simplejwt.tokens import AccessToken
+
+@api_view(['POST'])
+def myview(request):
+    data = json.loads(request.POST.dict().get('json'))
+    access_token = data.get('access_token')
+    access_token_obj = AccessToken(access_token)
+    user_id = access_token_obj['user_id']
 
 
 # Create your views here.
+def get_special_user():
+    special_user_id = 1
+    return User.objects.get(id=special_user_id)
 
 @api_view(['POST'])
-def create_event_attendance(request):
+def register_event(request, event_id):
+    permission_classes = (permissions.AllowAny,)
+
+    # Ensure the user is authenticated and authorized as needed
+    # if not request.user.is_authenticated:
+    #     return Response({'detail': 'Authentication required'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    data = request.data
+    # data['user'] = user_id  # Assign the authenticated user
+    serializer = RegisteredEventSerializer(data=data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def interest_event(request, event_id):
     # Ensure the user is authenticated and authorized as needed
     if not request.user.is_authenticated:
         return Response({'detail': 'Authentication required'}, status=status.HTTP_401_UNAUTHORIZED)
 
     data = request.data
     data['user'] = request.user.id  # Assign the authenticated user
-    serializer = EventAttendanceSerializer(data=data)
+    serializer = InterestedEventSerializer(data=data)
 
     if serializer.is_valid():
         serializer.save()
@@ -41,9 +69,13 @@ class EventViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'location', 'city', 'host', 'tags', '=link']
     # order = ['-created_at']
 
-class EventAttendanceViewSet(viewsets.ModelViewSet):
-    queryset = EventAttendance.objects.all()
-    serializer_class = EventAttendanceSerializer
+class RegisteredEventViewSet(viewsets.ModelViewSet):
+    queryset = RegisteredEvent.objects.all()
+    serializer_class = RegisteredEventSerializer
+
+class InterestedEventViewSet(viewsets.ModelViewSet):
+    queryset = InterestedEvent.objects.all()
+    serializer_class = InterestedEventSerializer
 
 class EventSpeakerViewSet(viewsets.ModelViewSet):
     queryset = EventSpeaker.objects.all()
@@ -73,9 +105,22 @@ def image_list_api(request):
     return JsonResponse(image_urls, safe=False)
 
 @api_view(['GET'])
-def event_attendances_list(request, event_id):
-    attendances = EventAttendance.objects.filter(event=event_id)
-    serializer = EventAttendanceSerializer(attendances, many=True)
+def event_reg_list(request, event_id):
+    attendances = RegisteredEvent.objects.filter(event=event_id)
+    serializer = RegisteredEventSerializer(attendances, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def event_allreg_list(request, user_id):
+    attendances = RegisteredEvent.objects.filter(user = user_id)
+    print(attendances)
+    serializer = RegisteredEventSerializer(attendances, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def event_interested_list(request, event_id):
+    attendances = InterestedEvent.objects.filter(event=event_id)
+    serializer = InterestedEventSerializer(attendances, many=True)
     return Response(serializer.data)
 
 
@@ -92,8 +137,8 @@ class UserRegister(APIView):
 
 
 class UserLogin(APIView):
-    permission_classes = (permissions.AllowAny,)
-    authentication_classes = (SessionAuthentication,)
+    # permission_classes = (permissions.AllowAny,)
+    # authentication_classes = (SessionAuthentication,)
     ##
     def post(self, request):
         data = request.data

@@ -5,9 +5,14 @@ from djoser.serializers import UserCreateSerializer, UserSerializer
 
 UserModel = get_user_model()
 
-class EventAttendanceSerializer(serializers.ModelSerializer):
+class RegisteredEventSerializer(serializers.ModelSerializer):
     class Meta:
-        model = EventAttendance
+        model = RegisteredEvent
+        fields = '__all__'
+        
+class InterestedEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegisteredEvent
         fields = '__all__'
 
 class UserCreateSerializer(UserCreateSerializer):
@@ -57,17 +62,18 @@ class EventSpeakerSerializer(serializers.ModelSerializer):
 #         model = User
 #         fields = ('id', 'username')
 
-class EventAttendanceSerializer(serializers.ModelSerializer):
-    user_details = UserSerializer(source='user', read_only=True)
-    class Meta:
-        model = EventAttendance
-        fields = '__all__'
+# class EventAttendanceSerializer(serializers.ModelSerializer):
+#     user_details = UserSerializer(source='user', read_only=True)
+#     class Meta:
+#         model = EventAttendance
+#         fields = '__all__'
 
 
 class EventSerializer(serializers.ModelSerializer):
     images = EventImageSerializer(many=True, read_only=True)
     speakers = EventSpeakerSerializer(many=True, read_only=True)
-    attendees = EventAttendanceSerializer(many=True, read_only=True)
+    registered = RegisteredEventSerializer(many=True, read_only=True)
+    interested = InterestedEventSerializer(many=True, read_only=True)
     class Meta:
         model = Event
         fields = '__all__'

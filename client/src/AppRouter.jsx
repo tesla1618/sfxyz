@@ -12,6 +12,8 @@ import CreateEvent from "./components/CreateEvent";
 import { API_URL } from "./config";
 import { Provider } from "react-redux";
 import store from "./store";
+import RegisterEvent from "./components/RegisterEvent";
+import MyEvents from "./components/MyEvents";
 
 const LOCALHOST = `${API_URL}`;
 
@@ -47,7 +49,9 @@ class AppRouter extends Component {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<RegPage />} />
             <Route path="/create" element={<CreateEvent />} />
+            <Route path="/registered" element={<MyEvents />} />
             <Route path="/:eventLink" element={<EventPage events={this.state.eventData} />} />
+            <Route path="/:eventLink/register" element={<RegisterEvent events={this.state.eventData} />} />
           </Routes>
         </BrowserRouter>
       </Provider>

@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, USER_LOADED, AUTH_ERROR, LOGOUT, AUTHENTICATED, NOT_AUTHENTICATED } from "./types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, USER_LOADED, AUTH_ERROR, LOGOUT, AUTHENTICATED, NOT_AUTHENTICATED, SIGNUP_SUCCESS, SIGNUP_FAIL } from "./types";
 import axios from "axios";
 import { API_URL } from "../config";
 
@@ -88,6 +88,28 @@ export const login = (email, password) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
+    });
+  }
+};
+
+export const signUp = (name, email, password, re_password) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ name, email, password, re_password });
+  try {
+    const res = await axios.post(`${LOCALHOST}/auth/users/`, body, config);
+    dispatch({
+      type: SIGNUP_SUCCESS,
+      payload: res.data,
+    });
+
+    // dispatch(loadUser());
+  } catch (err) {
+    dispatch({
+      type: SIGNUP_FAIL,
     });
   }
 };

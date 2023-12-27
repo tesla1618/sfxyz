@@ -5,8 +5,12 @@ import "../css/style.css";
 import "../css/LoginPage.css";
 import Layout from "./Layout";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+// import { signup } from "../actions/auth";
+import { signUp } from "../actions/auth";
+import { connect } from "react-redux";
 
-function RegPage() {
+const RegPage = ({ signup, isAuthenticated }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -17,6 +21,31 @@ function RegPage() {
     // else
     //     console.log("checked");
   };
+  let invalid = false;
+  const [accountCreated, setAccountCreated] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    re_password: "",
+  });
+  const { name, email, password, re_password } = formData;
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (password === re_password) {
+      signUp(name, email, password, re_password);
+      setAccountCreated(true);
+    }
+  };
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+  if (accountCreated) {
+    return <Navigate to="/login" />;
+  }
   return (
     <>
       <Layout>
@@ -26,15 +55,15 @@ function RegPage() {
               <img className="danceImg" src="/assets/images/reg-banner.png" alt="" width="500" />
             </div>
             <div className="col-md-5 col-12 pcontainer login-pc-v">
-              <form className="login-form">
+              <form className="login-form" onSubmit={(e) => onSubmit(e)}>
                 {/* <div class="info-box" role="alert">
                         Welcome back! Please enter your credentials to log in.
                     </div> */}
 
-                <input type="email" className="login-field" placeholder="Email" />
-                <input type="text" className="login-field" placeholder="Username" />
-                <input type="text" className="login-field" placeholder="Phone Number" />
-                <input type="password" className="login-field" placeholder="Password" />
+                <input onChange={(e) => onChange(e)} value={email} name="email" type="email" className="login-field" placeholder="Email" />
+                <input onChange={(e) => onChange(e)} value={name} name="name" type="text" className="login-field" placeholder="Username" />
+                <input onChange={(e) => onChange(e)} value={password} name="password" type="password" className="login-field" placeholder="Password" />
+                <input onChange={(e) => onChange(e)} value={re_password} name="re_password" type="password" className="login-field" placeholder="Password" />
                 <div className="text-start mt-3 mb-3">
                   <input checked={isChecked} onChange={handleCheckboxChange} type="checkbox" name="" id="" />{" "}
                   <i className="mx-2">
@@ -45,7 +74,7 @@ function RegPage() {
                     </Link>
                   </i>
                 </div>
-                <button type="submit" className="login-button" disabled={!isChecked}>
+                <button type="submit" className="login-button">
                   Sign up
                 </button>
               </form>
@@ -94,6 +123,10 @@ function RegPage() {
       </Layout>
     </>
   );
-}
+};
 
-export default RegPage;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { signUp })(RegPage);

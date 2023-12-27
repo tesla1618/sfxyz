@@ -25,7 +25,8 @@ router = routers.DefaultRouter()
 router.register(r'events', EventViewSet)
 router.register(r'speakers', EventSpeakerViewSet)  # Create a custom viewset for EventSpeaker
 router.register(r'images', EventImageViewSet)
-router.register(r'attendances', EventAttendanceViewSet)
+router.register(r'registered', RegisteredEventViewSet)
+router.register(r'registered', InterestedEventViewSet)
 # router.register(r'users', UserView)
 
 urlpatterns = [
@@ -33,8 +34,11 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/events/<int:event_id>/speakers/', event_speakers_list, name='event_speakers_list'),
     path('api/events/<int:event_id>/images/', event_images_list, name='event_images_list'),
-    path('api/events/<int:event_id>/attend/', create_event_attendance, name='create_event_attendance'),
-    path('api/events/<int:event_id>/attendances/', event_attendances_list, name='event_attendances_list'),
+    path('api/events/<int:event_id>/register/', register_event, name='register_event'),
+    path('api/events/<int:event_id>/interest/', interest_event, name='interest_event'),
+    path('api/events/<int:event_id>/registered/', event_reg_list, name='event_reg_list'),
+    path('api/myevents/<int:user_id>/', event_allreg_list, name='event_allreg_list'),
+    path('api/events/<int:event_id>/interested/', event_interested_list, name='event_interested_list'),
     path('api/register/', UserRegister.as_view(), name='register'),
 	path('api/login/', UserLogin.as_view(), name='login'),
 	path('api/logout/', UserLogout.as_view(), name='logout'),

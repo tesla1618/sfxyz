@@ -62,9 +62,10 @@
 
 .login-field-2 {
   width: 185px;
+  height: 70px;
   color: #e1e1e1;
   padding: 10px;
-  margin: 5px 0px 5px 0px;
+  margin: 0px 0px 5px 0px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -166,6 +167,9 @@ textarea {
   color: #e1e1e1;
 }
 input[type="file"] {
+  color: #e1e1e1;
+}
+input[type="date"] {
   color: #e1e1e1;
 }
 input[type="file"]::file-selector-button {

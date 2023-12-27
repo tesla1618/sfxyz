@@ -19,7 +19,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
   );
   const authLinks = () => (
     <>
-      <NavLink className={({ isActive }) => (isActive ? "sf-create-event active" : "sf-create-event")} to="/create">
+      <NavLink className={({ isActive }) => (isActive ? "sf-create-event active" : "sf-create-event")} to="/registered">
         <i class="bi bi-calendar2-check"></i>
       </NavLink>
       <NavLink className="sf-logout-2" onClick={logout}>

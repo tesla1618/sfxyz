@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "./Layout";
 import "../css/LoginPage.css";
+import EventRegistrationButton from "./EventRegistrationButton";
 
 function PrivateEvent() {
   return (

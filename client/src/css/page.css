@@ -81,8 +81,35 @@ spanText {
   font-size: 18px;
 }
 
+button.reg-btn {
+  height: 70px;
+  width: 160px;
+  padding: 15px 10px 10px 23px;
+  border: 1.8px solid #4c4ca6 !important;
+  background: none !important;
+  color: #dfe6e9;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+}
+button.reg-btn-success {
+  height: 70px;
+  width: 160px;
+  padding: 15px 10px 10px 13px;
+  border: 1.8px solid rgb(2, 148, 46) !important;
+  background: rgb(2, 148, 46) !important;
+  color: #dfe6e9;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+}
+
 .reg-btn:hover {
   background-color: #4c4ca6;
+  color: #fff;
+}
+button.reg-btn:hover {
+  background-color: #4c4ca6 !important;
   color: #fff;
 }
 

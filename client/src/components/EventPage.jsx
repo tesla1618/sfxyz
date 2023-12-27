@@ -8,6 +8,7 @@ import "../css/LoginPage.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from "reactstrap";
+import EventRegistrationButton from "./EventRegistrationButton";
 
 // import { Link } from "react-router-dom";
 
@@ -25,12 +26,12 @@ const EventPage = ({ events, isAuthenticated }) => {
 
     // console.log(eventCode);
     // console.log(eCode);
-    if (eventCode == eCode) {
-      if (isAuthenticated) {
-        navigate("/");
-      } else {
-        navigate("/login");
-      }
+    if (eventCode == eCode && isAuthenticated) {
+      console.log("Authenticated");
+      navigate("register");
+    } else if (eventCode == eCode && !isAuthenticated) {
+      console.log("Not Authenticated");
+      navigate("/login");
     } else {
       setMatched(false);
     }
@@ -110,7 +111,7 @@ const EventPage = ({ events, isAuthenticated }) => {
     if (selectedEvent) {
       // Fetch event attendances when the component mounts
       axios
-        .get(`${LOCALHOST}/api/events/${selectedEvent.id}/attendances/`)
+        .get(`${LOCALHOST}/api/events/${selectedEvent.id}/registered/`)
         .then((response) => {
           setRegisteredUsers(response.data);
         })
@@ -123,6 +124,7 @@ const EventPage = ({ events, isAuthenticated }) => {
 
   const [animatedCount, setAnimatedCount] = useState(0);
   const targetCount = registeredUsers.length;
+  // {registeredUsers.length}
 
   useEffect(() => {
     if (animatedCount < targetCount) {
@@ -193,9 +195,10 @@ const EventPage = ({ events, isAuthenticated }) => {
                           <input className="login-field-2" placeholder="Enter Event Code" id="eventCode" name="eventCode" value={eventCode} onChange={(event) => seteventCode(event.target.value)} />
                         </div>
                         <div className="col-5">
-                          <button type="submit" className="login-button-2">
+                          <EventRegistrationButton type="submit" eventId={selectedEvent.id} />
+                          {/* <button type="submit" className="login-button-2">
                             Join Event
-                          </button>
+                          </button> */}
                         </div>
                         {!Matched ? <span className="text-danger">Invalid Code</span> : null}
                       </div>
@@ -254,6 +257,10 @@ const EventPage = ({ events, isAuthenticated }) => {
     const circleBorderStyle = {
       borderWidth: `${registeredPercentage}%`,
       // borderColor: registeredPercentage === 100 ? 'green' : 'yellow',
+    };
+    const onRegistration = () => {
+      // Update the registeredUsers state by increasing the count
+      setRegisteredUsers((prevRegisteredUsers) => [...prevRegisteredUsers, { id: selectedEvent.id }]);
     };
 
     const formatRegisteredUsers = (count) => {
@@ -338,17 +345,17 @@ const EventPage = ({ events, isAuthenticated }) => {
                 <div className="num">{registeredUsers.length}</div>
                 <div className="txt">registered</div>
               </div>
-              <Link to="register" className="reg-btn">
-                {!selectedEvent.hasFee ? (
-                  <>
-                    <i className="bi bi-person-plus"></i>Register
-                  </>
-                ) : (
-                  <>
+              {selectedEvent.hasFee ? (
+                <>
+                  <Link to="register" className="reg-btn">
                     <i className="bi bi-currency-dollar"></i>Buy Ticket
-                  </>
-                )}
-              </Link>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <EventRegistrationButton eventId={selectedEvent.id} onRegistration={onRegistration} />
+                </>
+              )}
             </div>
             {/* <div className="mt-4 mb-5">
               <div className="container"></div>

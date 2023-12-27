@@ -3,6 +3,7 @@ import "../css/SearchMenu.css";
 import { API_URL } from "../config";
 import axios from "axios";
 import "../css/Search.css";
+import { Link } from "react-router-dom";
 
 const LOCALHOST = `${API_URL}`;
 
@@ -34,15 +35,21 @@ const SearchMenu = () => {
       </div>
       {query.length > 0 && (
         <div className="container-sf">
-          <div className="searchResults">
-            <b>Results for {query}</b>
+          <div className="searchResults py-4">
+            <b className="mx-3 mb-3">
+              Results for <b className="text-primary">{query}</b>
+            </b>
             {fdata.length > 0 ? (
               fdata.map((item) => (
-                <div key={item.id}>{item.name}</div>
+                <Link to={`/${item.link}`} className="no-und">
+                  <div key={item.id} className="my-3">
+                    <img src={item.thumb} alt={item.name} width="40" height="40" className="mx-2" /> {item.name}
+                  </div>
+                </Link>
                 // You can render other data properties here
               ))
             ) : (
-              <div>No results found</div>
+              <div className="mx-3 mt-3 text-danger">No results found</div>
             )}
           </div>
         </div>
